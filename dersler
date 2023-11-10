@@ -1,0 +1,51 @@
+// Bir soyut sınıf tanımlar. Soyut sınıflar, abstract anahtar sözcüğü ile tanımlanır. Soyut sınıflar, değişkenler ve metotlar içerebilir, ancak nesne oluşturulamaz. Soyut sınıflar, başka sınıflar tarafından kalıtım yoluyla kullanılır.
+public abstract class Sekil {
+    // Bir değişken tanımlar. Bu değişken, sınıfın özelliğidir. Her nesne, bu değişkene sahiptir.
+    String renk;
+
+    // Bir kurucu metot tanımlar. Bu metot, sınıfın nesnelerini oluşturmak için kullanılır. Soyut sınıflar, nesne oluşturulamaz, ancak alt sınıflar tarafından çağrılabilir.
+    public Sekil(String renk) {
+        this.renk = renk; // renk parametresini, sınıfın değişkenine atar.
+    }
+
+    // Bir soyut metot tanımlar. Soyut metotlar, abstract anahtar sözcüğü ile tanımlanır. Soyut metotlar, sadece metot adı, parametre listesi ve geri dönüş tipi ile tanımlanır. Soyut metotlar, metot gövdesi içermez. Soyut metotlar, alt sınıflar tarafından uygulanmalıdır.
+    public abstract double alanHesapla(); // alanHesapla adında, double geri dönüş tipinde, parametresiz bir soyut metot tanımlar.
+
+    // Bir normal metot tanımlar. Normal metotlar, metot adı, parametre listesi, geri dönüş tipi ve metot gövdesi ile tanımlanır. Normal metotlar, sınıfın işlevleridir. Her nesne, bu metotları kullanabilir.
+    // renkGoster metodu, nesnenin rengini kullanarak bir mesaj yazdırır.
+    public void renkGoster() {
+        System.out.println("Şeklin rengi: " + renk);
+    }
+}
+
+// Sekil sınıfından kalıtım yapan bir sınıf tanımlar. Sınıf adı Daire, extends anahtar sözcüğü Sekil sınıfından kalıtım yaptığını belirtir. Daire sınıfı, Sekil sınıfının değişkenlerine ve metotlarına sahiptir. Ayrıca, kendi değişkeni ve metodu vardır.
+public class Daire extends Sekil {
+    // Kendi değişkenini tanımlar. Bu değişken, sınıfın özgün özelliğidir. Sadece Daire nesneleri, bu değişkene sahiptir.
+    double yaricap;
+
+    // Kendi kurucu metotunu tanımlar. Bu metot, sınıfın nesnelerini oluşturmak için kullanılır. super anahtar sözcüğü ile üst sınıfın kurucu metotunu çağırır.
+    public Daire(String renk, double yaricap) {
+        super(renk); // Sekil sınıfının kurucu metotunu renk parametresiyle çağırır.
+        this.yaricap = yaricap; // yaricap parametresini, sınıfın değişkenine atar.
+    }
+
+    // Sekil sınıfının soyut metotunu uygular. Uygulanan metot, aynı metot adı, parametre listesi ve geri dönüş tipine sahip olmalıdır. Uygulanan metot, metot gövdesi içermelidir.
+    public double alanHesapla() { // Sekil sınıfının alanHesapla metotunu uygular.
+        double sonuc = Math.PI * yaricap * yaricap; // Dairenin alanını hesaplar.
+        return sonuc; // sonuc değişkenini geri döndürür.
+    }
+}
+
+// main metodu içinde, Sekil ve Daire sınıflarından nesneler oluşturabiliriz.
+public static void main(String[] args) {
+    // Sekil sınıfından bir nesne oluşturamayız, çünkü soyut bir sınıftır.
+    // Sekil s1 = new Sekil("Mavi"); // Bu satır hata verir.
+
+    // Daire sınıfından bir nesne oluşturur. Sınıf adı Daire, new anahtar sözcüğü nesne oluşturmak için kullanılır, kurucu metot Daire() sınıfın kendi kurucu metotudur. Oluşturulan nesneyi d1 değişkenine atar.
+    Daire d1 = new Daire("Kırmızı", 5);
+
+    // d1 nesnesinin metotlarını çağırır. Nokta operatörü ile nesnenin metotlarına erişilir. d1 nesnesi, Sekil sınıfından kalıtım yaptığı için, Sekil sınıfının metotlarına da sahiptir. Ayrıca, kendi metodu olan alanHesapla'yı da kullanabilir.
+    d1.renkGoster(); // Şeklin rengi: Kırmızı yazdırır.
+    double alan = d1.alanHesapla(); // d1 nesnesinin yarıçapını kullanarak bir hesaplama yapar ve sonucu alan değişkenine atar.
+    System.out.println("Dairenin alanı: " + alan); // Dairenin alanı: 78.53981633974483 yazdırır.
+}
